@@ -324,9 +324,9 @@ async function afficherProjetsModal(){
             })
             .then(res => {console.log (res.status);
                 if(res.status==204){
-                    const deleteProjetModale = document.getElementById('modale' + json.id);
+                    const deleteProjetModale = document.getElementById('modale' + article.id);
                     deleteProjetModale.remove();
-                    const deleteProjetGallery = document.getElementById('gallery' + json.id);
+                    const deleteProjetGallery = document.getElementById('gallery' + article.id);
                     deleteProjetGallery.remove();
                     alert("Projet supprimé avec succès.");}
           
@@ -381,7 +381,7 @@ async function submitForm(){
             alert("Erreur : Vous devez insérer une image")
         }
 
-        const formData = new FormData(form);   
+        const formData = new FormData(form);  
 
         //N'effectue la requête fetch que si le formulaire est bien rempli (voir checks)
         if(!imageCheck.src==0 && !titleCheck.value==0){
@@ -448,7 +448,7 @@ async function submitForm(){
                 figureElementModale.dataset.categoryId = json.categoryId;
                 figureElementModale.setAttribute("id", 'modale' + json.id)
                
-                let deleteButton = factoryButtonDelete(json.id, "fa-solid", "fa-trash-can");
+                let newDeleteButton = factoryButtonDelete(json.id, "fa-solid", "fa-trash-can");
 
                 //CREATION DES BALISES IMAGE ET ICONE
                 const imageElementModale = document.createElement("img");
@@ -464,7 +464,7 @@ async function submitForm(){
 
                 //CONTAINER EST PARENT DE IMAGE + ICONE SUPPR
                 containerImage.appendChild(imageElementModale);
-                containerImage.appendChild(deleteButton);
+                containerImage.appendChild(newDeleteButton);
 
                 //FIGURE EST ENFANT DE MODALE
                 sectionModale.appendChild(figureElementModale);
@@ -478,7 +478,7 @@ async function submitForm(){
                 //PARTIE SUR L'AJOUT DE LA COMMANDE SUPPRIMER
                 
 
-                deleteButton.addEventListener("click", function () {
+                newDeleteButton.addEventListener("click", function () {
                     fetch ("http://localhost:5678/api/works/" + json.id, {
                         method: 'DELETE',
                         headers: {
